@@ -1,0 +1,70 @@
+1) My favorite tool in Android is Android Virtual Device (AVD) because it allows the developer to define
+the characteristics of an Android phone, tablet, Android Wear, or Android TV device that one might one
+to simulate in the Android Emulator. The AVD Manager helps the developer create and manage AVDs.
+
+It is cheap since it doesn't require the developer to purchase the physical devices for various Android
+platforms in order to test his/her application.
+
+
+2) Step to open a map from an app
+a) Build an URI like Uri geoLocation = Uri.parse("geo:0,0?q=address+city+state+zipcode")
+b) Build an implicit intent like Intent intent = new Intent(Intent.ACTION_VIEW);
+c) intent.setData(geoLocation);
+d) check if the current android platform support this action of opening a map like
+  if(intent.resolveActivity(getPackageManager()) != null ) {
+    startActivity(intent);
+}
+
+3)public static String compress(String input) {
+    String[] chars = input.split("");
+    LinkedHashMap<String, int> map = new LinkedHashMap<String, int>();
+    for(String ch : chars) {
+       if(!map.containsKey(ch)) {
+           map.put(ch, 1);
+       }else {
+           map.put(ch, map.get(ch) + 1);
+       }
+    }
+    
+    String result = "";
+    Iterator it = map.entrySet().iterator();
+    while(it.hasNext()) {
+      Map.Entry pair = (Map.Entry) it.next();
+      result += pair.getKey()+pair.getValue();
+    }
+    return result;
+}
+
+4) Differences between the four variants ways of saving data in an Android app.
+  a) Shared Preferences (Key-Value sets)
+    if we have a small collection of key-values that we would like to save. it is smart to opt
+    for shared preferences since it provides simple methods to read and write primitives data types 
+    such integer, long, double, String etc...
+    Here is an example on how to get a handle of a SharedPreference Object within a fragment
+    SharedPreferences sharedPref = getActivity().getSharedPreferences(getString(R.string.preference_file_key),
+    Context.MODE_PRIVATE);
+
+  b) We can also opt for saving our data within our application. We can write our data on an internal or external
+   storage. If we save data within an internal storage it is important to note that our data will only be accessible
+   by our application where as if it is share on an External storage then our data can be shared across other devices
+   where our app is installed. We have to make sure that we include a specific permission in our manifest file
+   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  
+  c) Network
+   We can also decide to save data pertaining to our application over the network.
+   we first start by adding a permission for using internet connection.
+   <uses-permission android:name="android.permission.INTERNET" />. This is often done
+   by the means of push notification which allows the application to notify a user of new messages or events even the user is not 
+   actively using our application. We can use Parse which is by far one of the most popular BAAS for android platforms.
+   
+  d)SQLite
+    SQLite is a light weight database that comes with android. It allows us to save relational and complex data of our application
+    by running common SQL queries such as SELECT, DELETE, UPDATE on our tables. We often have to implement a content provider
+    for a best pratice for running these queries. The developer is often obligated to extends SQLiteOpenhelper class and override
+    two main methods onCreate() and onUpgrade()
+
+5) I like fragments because they are reusable and we can use them efficiently in large display. They are quite similar to Activities
+   with a sole difference of very few additional methods such as onCreateView(), onActivityAttach(). They allow the developer
+   to take advantage of larger screens to compartmentize our application.
+
+6) If i was to start my Android position today, i will like to publish a full working app in six months time on Google Play Services. 
