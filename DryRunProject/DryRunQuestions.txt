@@ -1,9 +1,11 @@
-1) My favorite tool in Android is Android Virtual Device (AVD) because it allows the developer to define
-the characteristics of an Android phone, tablet, Android Wear, or Android TV device that one might one
-to simulate in the Android Emulator. The AVD Manager helps the developer create and manage AVDs.
+1) My favorite library outside of Android framework is Picasso. This is simply because of its powerful library
+for downloading and caching images for our application. It does so by handling our ImageView recycling and download
+cancelation in an adapter. Complex image transformations with minimal memory use. Automatic memory and disk caching
 
-It is cheap since it doesn't require the developer to purchase the physical devices for various Android
-platforms in order to test his/her application.
+It is also easy to use and the developer doesn't have to worry so much of handling the image Loading in the background
+thread since the library does that efficiently and load the thumbnail in the imageView. Here is a snapshot of a code
+that will load an image in our imageView
+Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(imageView);
 
 
 2) Step to open a map from an app
@@ -16,22 +18,23 @@ d) check if the current android platform support this action of opening a map li
 }
 
 3)public static String compress(String input) {
+    String result = "";
+    if(input.length() == 1 || input.isEmpty()) return input;
     String[] chars = input.split("");
     LinkedHashMap<String, int> map = new LinkedHashMap<String, int>();
+    LinkedList<String> stack = new LinkedList<String>();
     for(String ch : chars) {
-       if(!map.containsKey(ch)) {
-           map.put(ch, 1);
+       if(stack.isEmpty() || stack.peek().equals(ch)) {
+          stack.push(ch);
        }else {
-           map.put(ch, map.get(ch) + 1);
+         result += stack.peek() + stack.size();
+         for(int i=0; i<stack.size(); i++) {
+            stack.pop();
+         }
+         stack.push(ch);
        }
     }
     
-    String result = "";
-    Iterator it = map.entrySet().iterator();
-    while(it.hasNext()) {
-      Map.Entry pair = (Map.Entry) it.next();
-      result += pair.getKey()+pair.getValue();
-    }
     return result;
 }
 
@@ -68,3 +71,5 @@ d) check if the current android platform support this action of opening a map li
    to take advantage of larger screens to compartmentize our application.
 
 6) If i was to start my Android position today, i will like to publish a full working app in six months time on Google Play Services. 
+I would also like to work on some exciting projects such as Android Wear and TV. Building great apps for such devices is indeed a dream 
+that i would like to realize.
