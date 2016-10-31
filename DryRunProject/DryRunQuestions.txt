@@ -19,23 +19,33 @@ d) check if the current android platform support this action of opening a map li
 
 3)public static String compress(String input) {
     String result = "";
-    if(input.length() == 1 || input.isEmpty()) return input;
-    else {
-      String[] chars = input.split("");
-      LinkedList<String> stack = new LinkedList<String>();
-      for(String ch : chars) {
-         if(stack.isEmpty() || stack.peek().equals(ch)) {
-           stack.push(ch);
-         }else {
-           result += stack.peek() + stack.size();
-           for(int i=0; i<stack.size(); i++) {
-             stack.pop();
-           }
-           stack.push(ch);
-       }
+    if(input.length() == 1 || input.isEmpty()) {
+       return input;
     }
-    if(!stack.isEmpty()) result += stack.peek() + stack.size();
-    return result;
+    else {
+       String result = "";
+       String count= "";
+       LinkedList<String> stack = new LinkedList<>();
+       for(String ch : input.split("")) {
+          if(stack.isEmpty() || stack.peek().equals(ch)) {
+             stack.push(ch);
+          }else {
+             result += stack.peek() + "" + stack.size();
+             count += stack.size();
+             for(int i=0; i < stack.size(); i++) {
+                stack.pop();
+             }
+             stack.push(ch);
+          }
+       }
+       result += stack.peek() + "" + stack.size();
+       count += stack.size();
+       String counter = "";
+       for(int i=0; i < input.length(); i++) {
+           counter += "1";
+       }
+       if(count.equals(counter)) return input;
+       return result;
     }
 }
 
